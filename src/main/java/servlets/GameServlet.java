@@ -9,10 +9,10 @@ import java.io.IOException;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import dao.GameHibernate;
 import model.Game;
 import model.Webpage;
-import org.hibernate.Session;
 import javax.persistence.*;
 
 @WebServlet("/game")
@@ -37,7 +37,6 @@ public class GameServlet extends HttpServlet {
                 response.getWriter().write("No game with this id");
             }
         }
-
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -79,6 +78,16 @@ public class GameServlet extends HttpServlet {
 
         ObjectMapper mapper = new ObjectMapper();
         response.getWriter().write(mapper.writeValueAsString(updatedGame));
+    }
+
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        long id = Long.parseLong(request.getParameter("id"));
+        Game game = gameHibernate.getGameById(id);
+
+        gameHibernate.deleteGameFromDatabase(game);
+
+        Gson gson = new Gson();
+        response.getWriter().write(gson.toJson("Game deleted"));
     }
 
 }
