@@ -28,4 +28,11 @@ public class GameHibernate {
         game.setTitle(updatedGame.getTitle());
         entityManager.getTransaction().commit();
     }
+
+    public void addGameToDatabase(Game newGame) {
+        newGame = entityManager.merge(newGame);
+        entityManager.getTransaction().begin();
+        entityManager.persist(newGame);
+        entityManager.getTransaction().commit();
+    }
 }

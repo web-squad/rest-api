@@ -10,7 +10,7 @@ public class Game {
     private String title;
     private String publisher;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "webpageId")
     private Webpage webpage;
 
