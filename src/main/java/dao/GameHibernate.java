@@ -35,4 +35,11 @@ public class GameHibernate {
         entityManager.persist(newGame);
         entityManager.getTransaction().commit();
     }
+
+    public void deleteGameFromDatabase(Game game) {
+        Query query = entityManager.createQuery("DELETE from Game where id =:id");
+        entityManager.getTransaction().begin();
+        query.setParameter("id", game.getId()).executeUpdate();
+        entityManager.getTransaction().commit();
+    }
 }
