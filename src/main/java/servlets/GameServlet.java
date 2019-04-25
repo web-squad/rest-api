@@ -41,6 +41,23 @@ public class GameServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        long id = Long.parseLong(request.getParameter("id"));
+        String title = request.getParameter("title");
+        String publisher = request.getParameter("publisher");
+        String address = request.getParameter("address");
+
+        Webpage webpage = new Webpage();
+        webpage.setAddress(address);
+        Game newGame = new Game();
+        newGame.setId(id);
+        newGame.setTitle(title);
+        newGame.setPublisher(publisher);
+        newGame.setWebpage(webpage);
+
+        gameHibernate.addGameToDatabase(newGame);
+
+        ObjectMapper mapper = new ObjectMapper();
+        response.getWriter().write(mapper.writeValueAsString(newGame));
 
     }
 
