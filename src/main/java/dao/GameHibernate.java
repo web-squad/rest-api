@@ -21,4 +21,11 @@ public class GameHibernate {
         List<Game> gameList = query.getResultList();
         return gameList;
     }
+
+    public void updateGameTitleById(long id, Game updatedGame) {
+        entityManager.getTransaction().begin();
+        Game game = getGameById(id);
+        game.setTitle(updatedGame.getTitle());
+        entityManager.getTransaction().commit();
+    }
 }

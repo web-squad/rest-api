@@ -11,6 +11,7 @@ import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.GameHibernate;
 import model.Game;
+import model.Webpage;
 import org.hibernate.Session;
 import javax.persistence.*;
 
@@ -44,10 +45,23 @@ public class GameServlet extends HttpServlet {
     }
 
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //if (request.getRequestURI().equals("/json-generator")) {
-            response.getWriter().write("tu kiedys bedzie put");
+        long id = Long.parseLong(request.getParameter("id"));
+        String newTitle = request.getParameter("title");
+        String publisher = request.getParameter("publisher");
+        String address = request.getParameter("address");
 
-        //}
+        Webpage webpage = new Webpage();
+        webpage.setAddress(address);
+        Game updatedGame = new Game();
+        updatedGame.setId(id);
+        updatedGame.setTitle(newTitle);
+        updatedGame.setPublisher(publisher);
+        updatedGame.setWebpage(webpage);
+
+        gameHibernate.updateGameTitleById(id, updatedGame);
+
+        ObjectMapper mapper = new ObjectMapper();
+        response.getWriter().write(mapper.writeValueAsString(updatedGame));
     }
 
 }
