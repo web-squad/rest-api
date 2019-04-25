@@ -1,42 +1,49 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Game {
     @Id
+    @GeneratedValue
     private long id;
     private String title;
-    private String gender;
+    private String publisher;
+
+    @OneToOne
+    @JoinColumn(name = "webpageId")
+    private Webpage webpage;
 
 
-    public Game(String title, String gender) {
-        this.title = title;
-        this.gender = gender;
+    public long getId() {
+        return id;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public long getId() {
-        return id;
+    public String getPublisher() {
+        return publisher;
     }
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public Webpage getWebpage() {
+        return webpage;
+    }
+
+    public void setWebpage(Webpage webpage) {
+        this.webpage = webpage;
     }
 }
