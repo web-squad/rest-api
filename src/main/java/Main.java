@@ -17,6 +17,12 @@ public class Main {
         game.setTitle("DOOM");
         game.setPublisher("Bethesda");
 
+        Game game1 = new Game();
+        game1.setTitle("Battlefield");
+        game1.setPublisher("EA");
+        Webpage battlefieldWebpage = new Webpage();
+        game1.setWebpage(battlefieldWebpage);
+
         doomWebpage.setAddress("www.doom.com");
         game.setWebpage(doomWebpage);
 
