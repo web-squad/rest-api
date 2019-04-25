@@ -1,14 +1,17 @@
 package model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
-public class Games {
+public class Game {
+    @Id
+    private long id;
     private String title;
     private String gender;
 
 
-    public Games(String title, String gender) {
+    public Game(String title, String gender) {
         this.title = title;
         this.gender = gender;
     }
@@ -27,5 +30,13 @@ public class Games {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
